@@ -9,11 +9,13 @@ exports.handler= function(e, ctx, callback){
     let commentTxt = e.commentTxt;
     let commentUserId = e.commentUserId;
     let commentTStamp = e.commentTStamp;
+    let commentIsAnonymous = e.isAnonymous;
     
     console.log(postTStamp)
     console.log(commentTxt)
     console.log(commentUserId)
     console.log(commentTStamp)
+    console.log(commentIsAnonymous)
 
     if(f.isAnyNullOrEmpty(postTStamp, commentTxt, commentUserId, commentTStamp)) {
         callback(null, 
@@ -21,8 +23,10 @@ exports.handler= function(e, ctx, callback){
             'userId, postDT, commentTxt, commentUserId or commentTStamp not provided', '', 400)
             )
     } else {     
-           
-        let comment = f.createComment(commentTxt, commentUserId, commentTStamp)
+        if(f.isNullOrEmpty(commentIsAnonymous))
+            commentIsAnonymous = false;
+
+        let comment = f.createComment(commentTxt, commentUserId, commentTStamp, commentIsAnonymous)
         let params = {
             Key: {
                 weekDay: s.DEFAULT_WEEK_DAY,

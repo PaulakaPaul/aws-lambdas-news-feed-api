@@ -7,24 +7,27 @@ var createResponse = function(data='', errorMessage='', infoMessage='', statusCo
     };
 }
 
-var createEntry = function(weekDay, postTStamp, userId, postTxt, comments=undefined) {
+var createEntry = function(weekDay, postTStamp, userId, postTitle, postTxt, isAnonymous, comments=undefined) {
     if(!isAnyNullOrEmpty(weekDay, userId, postTStamp, postTxt))
         return {
             weekDay: weekDay,
             postTStamp: postTStamp,
             userId: userId,
+            postTitle: postTitle,
             postTxt: postTxt,
+            isAnonymous: isAnonymous,
             comments: comments
         }
     throw new Error('Post entry has no userId, postDT or postTxt which are mandatory.')
 }
 
-var createComment = function(commentTxt, commentUserId, commentTStamp) {
+var createComment = function(commentTxt, commentUserId, commentTStamp, commentIsAnonymous) {
     if(!isAnyNullOrEmpty(commentTxt, commentUserId, commentTStamp))
         return {
             commentTxt: commentTxt,
             commentUserId: commentUserId,
-            commentTStamp: commentTStamp
+            commentTStamp: commentTStamp,
+            commentIsAnonymous: commentIsAnonymous
         }
     throw new Error('Comment has no commentTxt, commentUser or commentDT which are mandatory')
 }
