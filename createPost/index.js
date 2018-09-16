@@ -14,10 +14,10 @@ exports.handler= function(e, ctx, callback){
     console.log(postTxt)
 
     if(f.isAnyNullOrEmpty(userId, postTStamp, postTxt)) {
-        callback(null, f.createResponse('', 'userId, postDT or postTxt not provided', '', 400))
+        callback(null, f.createResponse('', 'weekDay, userId, postDT or postTxt not provided', '', 400))
     } else {        
 		var post = {
-			Item: f.createEntry(userId, postTStamp, postTxt),
+			Item: f.createEntry(s.DEFAULT_WEEK_DAY, postTStamp, userId, postTxt),
 			TableName: s.NEWS_FEED_TABLE_NAME
 		};
 	

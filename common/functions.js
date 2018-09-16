@@ -7,11 +7,12 @@ var createResponse = function(data='', errorMessage='', infoMessage='', statusCo
     };
 }
 
-var createEntry = function(userId, postTStamp, postTxt, comments=undefined) {
-    if(!isAnyNullOrEmpty(userId, postTStamp, postTxt))
+var createEntry = function(weekDay, postTStamp, userId, postTxt, comments=undefined) {
+    if(!isAnyNullOrEmpty(weekDay, userId, postTStamp, postTxt))
         return {
-            userId: userId,
+            weekDay: weekDay,
             postTStamp: postTStamp,
+            userId: userId,
             postTxt: postTxt,
             comments: comments
         }

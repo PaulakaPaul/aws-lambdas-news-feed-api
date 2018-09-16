@@ -5,20 +5,17 @@ const docClient = new AWS.DynamoDB.DocumentClient({region: s.REGION});
 
 exports.handler= function(e, ctx, callback){
 
-    let userId = e.userId;
     let postTStamp = e.postTStamp;
-    
     let commentTxt = e.commentTxt;
     let commentUserId = e.commentUserId;
     let commentTStamp = e.commentTStamp;
     
-    console.log(userId)
     console.log(postTStamp)
     console.log(commentTxt)
     console.log(commentUserId)
     console.log(commentTStamp)
 
-    if(f.isAnyNullOrEmpty(userId, postTStamp, commentTxt, commentUserId, commentTStamp)) {
+    if(f.isAnyNullOrEmpty(postTStamp, commentTxt, commentUserId, commentTStamp)) {
         callback(null, 
             f.createResponse('', 
             'userId, postDT, commentTxt, commentUserId or commentTStamp not provided', '', 400)
@@ -28,7 +25,7 @@ exports.handler= function(e, ctx, callback){
         let comment = f.createComment(commentTxt, commentUserId, commentTStamp)
         let params = {
             Key: {
-                userId: userId,
+                weekDay: s.DEFAULT_WEEK_DAY,
                 postTStamp: postTStamp
             },
             TableName: s.NEWS_FEED_TABLE_NAME
@@ -66,6 +63,9 @@ exports.handler= function(e, ctx, callback){
                             callback(null, f.createResponse('Comment added', '', '', 200))
                         }
                     });
+                }
+                else {
+                    callback(null, f.createResponse('', '', 'No post to add the comment to', 200))
                 }
 			}
 		});
