@@ -1,6 +1,7 @@
 # aws-lambdas-news-feed
 
 # API
+```
 * /post -> POST (query params: userId(String), postTStamp(numeric), isAnonymoues(boolean)
                  body: postTitle(String), postTxt(String))
         -> GET (query params: pageNumber(numeric))
@@ -8,6 +9,7 @@
 * /post/comment -> POST (query params: postTStamp(numeric)
                     body: commentTxt(String), commentUserId(String), 
                           commentTStamp(numeric), commentIsAnonymous(boolean))
+```
 
 ## !!! Response has the following format !!!: 
 ```
