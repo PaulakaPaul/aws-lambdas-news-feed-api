@@ -9,7 +9,7 @@ exports.handler= function(e, ctx, callback){
     let commentTxt = e.commentTxt;
     let commentUserId = e.commentUserId;
     let commentTStamp = e.commentTStamp;
-    let commentIsAnonymous = e.isAnonymous;
+    let commentIsAnonymous = e.commentIsAnonymous;
     
     console.log(postTStamp)
     console.log(commentTxt)

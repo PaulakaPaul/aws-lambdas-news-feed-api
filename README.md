@@ -1,5 +1,8 @@
 # aws-lambdas-news-feed
 
+## Main URL: 
+    https://lqn073orje.execute-api.eu-central-1.amazonaws.com/dev
+    
 # API
 ```
 * /post -> POST (query params: userId(String), postTStamp(numeric), isAnonymous(boolean)

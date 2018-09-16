@@ -29,7 +29,7 @@ var createComment = function(commentTxt, commentUserId, commentTStamp, commentIs
             commentTStamp: commentTStamp,
             commentIsAnonymous: commentIsAnonymous
         }
-    throw new Error('Comment has no commentTxt, commentUser or commentDT which are mandatory')
+    throw new Error('Comment has no commentTxt, commentUser or commentTStamp which are mandatory')
 }
 
 var isNullOrEmpty = function(text) {
