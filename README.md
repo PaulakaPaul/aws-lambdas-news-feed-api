@@ -5,8 +5,8 @@
     
 # API
 ```
-* /post -> POST (query params: userId(String), postTStamp(numeric), isAnonymous(boolean)
-                 body: postTitle(String), postTxt(String))
+* /post -> POST (query params: userId(String), postTStamp(numeric)
+                 body: isAnonymous(boolean), postTitle(String), postTxt(String))
         -> GET (query params: pageNumber(numeric))
         -> DELETE (query params: postTStamp(numeric))
 * /post/comment -> POST (query params: postTStamp(numeric)
