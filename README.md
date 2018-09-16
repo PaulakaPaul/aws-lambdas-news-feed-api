@@ -2,7 +2,7 @@
 
 # API
 ```
-* /post -> POST (query params: userId(String), postTStamp(numeric), isAnonymoues(boolean)
+* /post -> POST (query params: userId(String), postTStamp(numeric), isAnonymous(boolean)
                  body: postTitle(String), postTxt(String))
         -> GET (query params: pageNumber(numeric))
         -> DELETE (query params: postTStamp(numeric))
