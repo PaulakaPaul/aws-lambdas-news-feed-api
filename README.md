@@ -10,7 +10,26 @@
                     body: commentTxt(String), commentUserId(String), 
                           commentTStamp(numeric), commentIsAnonymous(boolean))
 ```
-
+## !!! Post has the following format !!!
+```
+    {
+        weekDay: numeric,
+        userId: string,
+        postTxt: string,
+        postTStamp: string,
+        postTitle: string,
+        isAnonymous: boolean,
+        comments: [{
+               commentIsAnonymous: boolean,
+               commentTStamp: numeric,
+               commentTxt: string,
+               commentUserId: string 
+        }, ... ,
+        {
+         ...   
+        }]
+    }
+```
 ## !!! Response has the following format !!!: 
 ```
     {
