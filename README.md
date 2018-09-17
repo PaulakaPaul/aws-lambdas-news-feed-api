@@ -12,6 +12,7 @@
 * /post/comment -> POST (query params: postTStamp(numeric)
                     body: commentTxt(String), commentUserId(String), 
                           commentTStamp(numeric), commentIsAnonymous(boolean))
+* /post/user -> GET (query params: userId)
 ```
 ## !!! Post has the following format !!!
 ```

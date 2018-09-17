@@ -18,7 +18,7 @@ var createEntry = function(weekDay, postTStamp, userId, postTitle, postTxt, isAn
             isAnonymous: isAnonymous,
             comments: comments
         }
-    throw new Error('Post entry has no userId, postDT or postTxt which are mandatory.')
+    throw new Error('Post entry has no userId, postTStamp or postTxt which are mandatory.')
 }
 
 var createComment = function(commentTxt, commentUserId, commentTStamp, commentIsAnonymous) {
