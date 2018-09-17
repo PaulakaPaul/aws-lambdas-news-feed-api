@@ -19,9 +19,9 @@ exports.handler= function(e, ctx, callback){
         let params = {
             TableName: s.NEWS_FEED_TABLE_NAME,
             IndexName: 'userId-postTStamp',
-            KeyConditionExpression: 'userId = :weekuserIdDay and postTStamp > :postTStamp',
+            KeyConditionExpression: 'userId = :userId and postTStamp > :postTStamp',
             ExpressionAttributeValues: {
-                ':userId': s.DEFAULT_WEEK_DAY,
+                ':userId': userId,
                 ':postTStamp': Date.now() - s.MAX_TIMESTAMP_USER_QUERY
             }
         }

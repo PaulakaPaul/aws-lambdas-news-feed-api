@@ -24,7 +24,7 @@ exports.handler= function(e, ctx, callback){
             isAnonymous = false;
         
 		var post = {
-			Item: f.createEntry(s.DEFAULT_WEEK_DAY, postTStamp, userId, postTitle, postTxt, isAnonymous),
+			Item: f.createEntry(s.DEFAULT_WEEK_DAY, postTStamp, userId, postTitle, postTxt, isAnonymous, []),
 			TableName: s.NEWS_FEED_TABLE_NAME
 		};
 	
