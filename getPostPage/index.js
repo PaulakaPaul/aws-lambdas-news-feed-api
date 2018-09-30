@@ -6,7 +6,7 @@ const docClient = new AWS.DynamoDB.DocumentClient({region: s.REGION});
 exports.handler= function(e, ctx, callback){
 
     let referenceTimestamp = e.referenceTimestamp
-    let isStart = e.isStart
+    let isStart = e.isStart === 'true'
     
     console.log(referenceTimestamp)
     console.log(isStart)
@@ -57,7 +57,18 @@ exports.handler= function(e, ctx, callback){
                             endPointInterval -= 1;
 
                         let startingPointInterval = endPointInterval - s.PAGE_SIZE;
-                        items = items.slice(startingPointInterval + 1, endPointInterval + 1).reverse();
+                        
+                        // Correction for the reverse() function.
+                        startingPointInterval += 1;
+                        endPointInterval += 1;
+
+                        if(startingPointInterval < 0)
+                            startingPointInterval = 0;
+                        if(endPointInterval < 0)
+                            endPointInterval = 0;
+                            
+                        console.log(startingPointInterval + ' -> ' + endPointInterval)
+                        items = items.slice(startingPointInterval, endPointInterval).reverse();
                         callback(null, f.createResponse(items, '', '', 200));
                     }
                 }
