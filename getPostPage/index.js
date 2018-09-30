@@ -5,16 +5,16 @@ const docClient = new AWS.DynamoDB.DocumentClient({region: s.REGION});
 
 exports.handler= function(e, ctx, callback){
 
-    let pageNumber = e.pageNumber;
     let referenceTimestamp = e.referenceTimestamp
+    let isStart = e.isStart
     
-    console.log(pageNumber)
     console.log(referenceTimestamp)
+    console.log(isStart)
 
-    if(f.isAnyNullOrEmpty(pageNumber)) {
+    if(f.isAnyNullOrEmpty(referenceTimestamp, isStart)) {
         callback(null, 
             f.createResponse('', 
-            'pageNumber not provided', '', 400)
+            'referenceTimestamp or isStart not provided', '', 400)
             )
     } else {     
            
@@ -33,12 +33,13 @@ exports.handler= function(e, ctx, callback){
 				callback(null, f.createResponse('', err, '', 500));
 			} else {
 
-                if(referenceTimestamp === undefined) {
-                    let startingPointInterval = pageNumber * s.PAGE_SIZE;
-                    let endPointInterval = startingPointInterval + s.PAGE_SIZE;
-                    let items = data['Items'].reverse();
-                    items = items.slice(startingPointInterval, endPointInterval);
-                    callback(null, f.createResponse(items, '', '', 200));
+                if(referenceTimestamp === s.STARTING_REFERENCE_TIMESTAMP_VALUE) {
+                       // Just grab the first s.PAGE_SIZE items (in descending order).
+                       let items = data['Items']
+                       let endPointInterval = items.length
+                       let startingPointInterval = items.length - s.PAGE_SIZE;
+                       items = items.slice(startingPointInterval, endPointInterval).reverse();
+                       callback(null, f.createResponse(items, '', '', 200));
                 } else {
                     let items = data['Items'];
                     // endPointInterval because the items are in ascending order and we will want them in
@@ -48,12 +49,15 @@ exports.handler= function(e, ctx, callback){
 
                     if(endPointInterval === -1) {
                         // If the item does not exist stop the logic.
-                        callback(null, f.createResponse([], '', '', 200));
+                        callback(null, f.createResponse([], '', 'The items from that reference point that does not exist', 200));
                     } else { 
-                        // Send the page of items since the index of the sent item - 1.
-                        endPointInterval -= 1;
+                        
+                        // If it's not the start we need the slice of items since the next item.
+                        if(isStart === false)
+                            endPointInterval -= 1;
+
                         let startingPointInterval = endPointInterval - s.PAGE_SIZE;
-                        items = items.slice(startingPointInterval, endPointInterval).reverse();
+                        items = items.slice(startingPointInterval + 1, endPointInterval + 1).reverse();
                         callback(null, f.createResponse(items, '', '', 200));
                     }
                 }

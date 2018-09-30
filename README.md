@@ -7,7 +7,7 @@
 ```
 * /post -> POST (query params: userId(String), postTStamp(numeric)
                  body: isAnonymous(boolean), postTitle(String), postTxt(String))
-        -> GET (query params: pageNumber(numeric))
+        -> GET (query params: referenceTimestamp(numeric), isStart(boolean))
         -> DELETE (query params: postTStamp(numeric))
 * /post/comment -> POST (query params: postTStamp(numeric)
                     body: commentTxt(String), commentUserId(String), 
