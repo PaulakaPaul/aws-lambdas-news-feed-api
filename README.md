@@ -11,7 +11,8 @@
         -> DELETE (query params: postTStamp(numeric))
 * /post/comment -> POST (query params: postTStamp(numeric)
                     body: commentTxt(String), commentUserId(String), 
-                          commentTStamp(numeric), commentIsAnonymous(boolean))
+                          commentTStamp(numeric), commentIsAnonymous(boolean),
+                          snsTopic(String))
 * /post/user -> GET (query params: userId)
 ```
 ## !!! Post has the following format !!!

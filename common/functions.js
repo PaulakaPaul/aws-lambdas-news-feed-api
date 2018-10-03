@@ -7,7 +7,7 @@ var createResponse = function(data='', errorMessage='', infoMessage='', statusCo
     };
 }
 
-var createEntry = function(weekDay, postTStamp, userId, postTitle, postTxt, isAnonymous, comments=undefined) {
+var createEntry = function(weekDay, postTStamp, userId, postTitle, postTxt, isAnonymous, snsTopic, comments=undefined) {
     if(!isAnyNullOrEmpty(weekDay, userId, postTStamp, postTxt))
         return {
             weekDay: weekDay,
@@ -16,6 +16,7 @@ var createEntry = function(weekDay, postTStamp, userId, postTitle, postTxt, isAn
             postTitle: postTitle,
             postTxt: postTxt,
             isAnonymous: isAnonymous,
+            snsTopic: snsTopic,
             comments: comments
         }
     throw new Error('Post entry has no userId, postTStamp or postTxt which are mandatory.')

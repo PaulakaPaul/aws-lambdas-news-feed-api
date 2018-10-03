@@ -10,12 +10,14 @@ exports.handler= function(e, ctx, callback){
     let commentUserId = e.commentUserId;
     let commentTStamp = e.commentTStamp;
     let commentIsAnonymous = e.commentIsAnonymous;
+    let snsTopic = e.snsTopic;
     
     console.log(postTStamp)
     console.log(commentTxt)
     console.log(commentUserId)
     console.log(commentTStamp)
     console.log(commentIsAnonymous)
+    console.log(snsTopic)
 
     if(f.isAnyNullOrEmpty(postTStamp, commentTxt, commentUserId, commentTStamp)) {
         callback(null, 
