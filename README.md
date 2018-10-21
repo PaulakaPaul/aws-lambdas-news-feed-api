@@ -14,6 +14,7 @@
                           commentTStamp(numeric), commentIsAnonymous(boolean),
                           snsTopic(String))
 * /post/user -> GET (query params: userId)
+* /post/timestamp -> GET (query params: postTStamp(numeric))
 ```
 ## !!! Post has the following format !!!
 ```
