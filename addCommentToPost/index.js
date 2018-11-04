@@ -19,32 +19,30 @@ exports.handler= function(e, ctx, callback){
     console.log(commentIsAnonymous)
     console.log(snsTopic)
 
-    if(f.isAnyNullOrEmpty(postTStamp, commentTxt, commentUserId, commentTStamp, snsTopic)) {
+    if(f.isAnyNullOrEmpty(postTStamp, commentTxt, commentUserId, commentTStamp)) {
         callback(null, 
             f.createResponse('', 
-            'userId, postDT, commentTxt, commentUserId, commentTStamp or snsTopic not provided', '', 400)
+            'userId, postDT, commentTxt, commentUserId or commentTStamp not provided', '', 400)
             )
     } else {
-        //Modified by @sebi
         
-        var snsParams = {
-            Message: commentUserId +'muiepsdasdfghjkl'+ postTStamp +'muiepsdasdfghjkl'+ commentTxt, /* required */
-            TopicArn: snsTopic,
-        };
-
-        // Create promise and SNS service object
-        
-        var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(snsParams).promise();
-        
-        publishTextPromise.then(
-            function(data) {
-                console.log("Message ${params.Message} send sent to the topic ${params.TopicArn}");
-                console.log("MessageID is " + data.MessageId);
-             }).catch(
-                  function(err) {
-           console.error(err, err.stack);
-        });
-        
+        if(!f.isNullOrEmpty(snsTopic)) {
+            var snsParams = {
+                Message: commentUserId +'muiepsdasdfghjkl'+ postTStamp +'muiepsdasdfghjkl'+ commentTxt, /* required */
+                TopicArn: snsTopic,
+            };
+            
+            var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(snsParams).promise();
+            
+            publishTextPromise.then(
+                function(data) {
+                    console.log("Message ${params.Message} send sent to the topic ${params.TopicArn}");
+                    console.log("MessageID is " + data.MessageId);
+                }).catch(
+                    function(err) {
+            console.error(err, err.stack);
+            });
+        }
         
         if(f.isNullOrEmpty(commentIsAnonymous))
             commentIsAnonymous = false;
