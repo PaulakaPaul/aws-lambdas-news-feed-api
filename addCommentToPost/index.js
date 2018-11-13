@@ -52,6 +52,7 @@ exports.handler= function(e, ctx, callback){
     let commentTStamp = e.commentTStamp;
     let commentIsAnonymous = e.commentIsAnonymous;
     let snsTopic = e.snsTopic;
+    let endpointARN = e.endpoint;
     
     console.log(postTStamp)
     console.log(commentTxt)
@@ -59,6 +60,7 @@ exports.handler= function(e, ctx, callback){
     console.log(commentTStamp)
     console.log(commentIsAnonymous)
     console.log(snsTopic)
+    console.log(endpointARN)
 
     if(f.isAnyNullOrEmpty(postTStamp, commentTxt, commentUserId, commentTStamp)) {
         callback(null, 
@@ -115,8 +117,10 @@ exports.handler= function(e, ctx, callback){
                         if(err) {
                             callback(null, f.createResponse('', err, '', 500));
                         } else {
-                            callback(null, f.createResponse('Comment added', '', '', 200))
+                            f.subscribeToTopic(snsTopic, endpointARN);
                             publishToSNSTopic(snsTopic, snsMessage);
+
+                            callback(null, f.createResponse('Comment added', '', '', 200))
                         }
                     });
                 }
