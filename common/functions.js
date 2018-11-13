@@ -53,6 +53,27 @@ var isEmptyObject = function(obj) {
     return !Object.keys(obj).length
 } 
 
+var subscribeToTopic = function(snsTopic, endpointARN) {
+    if(!isNullOrEmpty(snsTopic) && !isNullOrEmpty(endpointARN)) {
+        const AWS = require('aws-sdk');
+
+        let params = {
+            Protocol: 'application', /* required */
+            TopicArn: snsTopic, /* required */
+            Endpoint: endpointARN
+        };
+
+        var subscribePromise = new AWS.SNS({apiVersion: '2010-03-31'}).subscribe(params).promise();
+        subscribePromise.then(
+            function(data) { 
+            console.log("Subscribed successfuly: " + data)
+            }).catch(
+        function(err) {
+            console.error(err, err.stack);
+        });
+    }
+}
+
 module.exports = {
     createResponse: createResponse,
     createComment: createComment,
@@ -60,5 +81,6 @@ module.exports = {
     isNullOrEmpty: isNullOrEmpty,
     isAnyNullOrEmpty: isAnyNullOrEmpty,
     createEntry: createEntry,
-    isEmptyObject: isEmptyObject
+    isEmptyObject: isEmptyObject,
+    subscribeToTopic: subscribeToTopic
 }
