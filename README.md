@@ -13,7 +13,7 @@
 * /post/comment -> POST (query params: postTStamp(numeric)
                     body: commentTxt(String), commentUserId(String), 
                           commentTStamp(numeric), commentIsAnonymous(boolean),
-                          snsTopic(String))
+                          snsTopic(String), endpoint(String))
 * /post/user -> GET (query params: userId)
 * /post/timestamp -> GET (query params: postTStamp(numeric))
 ```
