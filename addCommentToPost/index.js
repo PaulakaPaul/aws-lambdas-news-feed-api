@@ -49,6 +49,7 @@ exports.handler= function(e, ctx, callback){
     let postTStamp = e.postTStamp;
     let commentTxt = e.commentTxt;
     let commentUserId = e.commentUserId;
+    let commentUserUsername = e.commentUserUsername;
     let commentTStamp = e.commentTStamp;
     let commentIsAnonymous = e.commentIsAnonymous;
     let snsTopic = e.snsTopic;
@@ -57,6 +58,7 @@ exports.handler= function(e, ctx, callback){
     console.log(postTStamp)
     console.log(commentTxt)
     console.log(commentUserId)
+    console.log(commentUserUsername)
     console.log(commentTStamp)
     console.log(commentIsAnonymous)
     console.log(snsTopic)
@@ -70,8 +72,12 @@ exports.handler= function(e, ctx, callback){
     } else {
         if(f.isNullOrEmpty(commentIsAnonymous))
             commentIsAnonymous = false;
+        
+        // TODO: Maybe it's not the best ideea to name the username to Anonymous if it's empty.
+        if(f.isAnyNullOrEmpty(commentUserUsername))
+            commentUserUsername = 'Anonymous'
 
-        let comment = f.createComment(commentTxt, commentUserId, commentTStamp, commentIsAnonymous)
+        let comment = f.createComment(commentTxt, commentUserId, commentTStamp, commentUserUsername, commentIsAnonymous)
         let params = {
             Key: {
                 weekDay: s.DEFAULT_WEEK_DAY,

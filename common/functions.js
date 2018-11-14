@@ -22,11 +22,12 @@ var createEntry = function(weekDay, postTStamp, userId, postTitle, postTxt, isAn
     throw new Error('Post entry has no userId, postTStamp or postTxt which are mandatory.')
 }
 
-var createComment = function(commentTxt, commentUserId, commentTStamp, commentIsAnonymous) {
+var createComment = function(commentTxt, commentUserId, commentTStamp, commentUserUsername, commentIsAnonymous) {
     if(!isAnyNullOrEmpty(commentTxt, commentUserId, commentTStamp))
         return {
             commentTxt: commentTxt,
             commentUserId: commentUserId,
+            commentUserUsername: commentUserUsername,
             commentTStamp: commentTStamp,
             commentIsAnonymous: commentIsAnonymous
         }
