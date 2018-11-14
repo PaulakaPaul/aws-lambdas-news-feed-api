@@ -39,10 +39,9 @@ exports.handler= function(e, ctx, callback){
     
             docClient.put(post, function(err, data){
                 if(err){
-                    f.subscribeToTopic(snsTopic, endpointARN);
-
                     callback(null, f.createResponse('', err, '', 500));
                 } else { 
+                    f.subscribeToTopic(snsTopic, endpointARN);
                     callback(null, f.createResponse('Post saved', '', '', 200))
                 }
             });
