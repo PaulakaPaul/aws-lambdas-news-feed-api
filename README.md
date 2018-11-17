@@ -31,7 +31,8 @@
                commentIsAnonymous: boolean,
                commentTStamp: numeric,
                commentTxt: string,
-               commentUserId: string 
+               commentUserId: string,
+               commentUserUsername: string
         }, ... ,
         {
          ...   
